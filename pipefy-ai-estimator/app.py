@@ -9,8 +9,13 @@ import os
 # Adicionar src ao path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from src.ml_model import PipefyEstimator
-from src.data_models import PipefyProject
+try:
+    from src.ml_model import PipefyEstimator
+    from src.data_models import PipefyProject
+except ImportError:
+    # Fallback para execução direta
+    from ml_model import PipefyEstimator
+    from data_models import PipefyProject
 import json
 from datetime import datetime
 
@@ -213,4 +218,4 @@ if __name__ == '__main__':
     estimator.load_model('models/pipefy_estimator.pkl')
     
     # Executar aplicação
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=8080)
